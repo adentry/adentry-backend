@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+venv/
+.env
+.env.*
+.venv/
+
+# Django
+*.log
+*.pot
+*.pyc
+db.sqlite3
+media/
+staticfiles/
+
+# VS Code
+.vscode/
+
+# Byte-compiled / caches
+htmlcov/
+.coverage
+
+# Build / C++ artifacts
+build/
+dist/
+*.so
+*.o
+
+# Node (if you add frontend later)
+node_modules/
+
+# OS
+.DS_Store
+
