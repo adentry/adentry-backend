@@ -1,5 +1,7 @@
 import uuid
+
 from django.db import models
+from django.conf import settings
 from django.core.exceptions import ValidationError
 
 
@@ -45,7 +47,10 @@ class PaymentAccount(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
+    # User-friendly name: "HDFC Credit Card", "PhonePe", "Cash Wallet"
     name = models.CharField(max_length=150)
+    
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="payment_accounts")
     payment_mode = models.ForeignKey(PaymentMode, on_delete=models.PROTECT)
 
     # Stores actual values filled for dynamic fields
@@ -88,9 +93,9 @@ class PaymentAccount(models.Model):
     def __str__(self):
         """
         Returns smart readable name like:
-        - "HDFC Credit Card (XXXX1234)"
-        - "Paytm Wallet (ID: rahul@paytm)"
-        - "Cash"
+        - "Aditya Jain - HDFC Credit Card (XXXX1234)"
+        - "Aditya Jain - Paytm Wallet (ID: rahul@paytm)"
+        - "Aditya Jain - Cash"
         """
         display = self.name
 
@@ -105,7 +110,7 @@ class PaymentAccount(models.Model):
                 break
 
         if identifier:
-            display = f"{self.name} ({identifier})"
+            display = f"{self.user} - {self.name} ({identifier})"
 
         return display
 

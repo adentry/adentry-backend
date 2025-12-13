@@ -1,5 +1,5 @@
 from .profile import *
-from .account import *
-from .beneficiary import *
+from .payment import *
+# from .beneficiary import *
 
 
